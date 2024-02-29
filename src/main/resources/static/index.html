@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spring boot simple chat app</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Spring Boot WebSocket Chat Application</title>
     <link rel="stylesheet" href="/css/main.css" />
-
 </head>
 <body>
+<noscript>
+    <h2>Sorry! Your browser doesn't support Javascript</h2>
+</noscript>
 
-    
 <div id="username-page">
     <div class="username-page-container">
         <h1 class="title">Type your username to enter the Chatroom</h1>
@@ -27,11 +27,8 @@
 <div id="chat-page" class="hidden">
     <div class="chat-container">
         <div class="chat-header">
-            <h2>Spring WebSocket Simple Chat Demo - Divyansh</h2>
+            <h2>Spring WebSocket Chat Demo - By Alibou</h2>
         </div>
-
-        <div id="first-user-info" class="first-user-info"></div>
-
         <div class="connecting">
             Connecting...
         </div>
@@ -49,11 +46,6 @@
     </div>
 </div>
 
-
-    
-
-
-    
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <script src="/js/main.js"></script>

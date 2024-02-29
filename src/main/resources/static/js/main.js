@@ -1,6 +1,4 @@
-'use strict';  
-// everything to be declarative and to mention all the types and so
-
+'use strict';
 
 var usernamePage = document.querySelector('#username-page');
 var chatPage = document.querySelector('#chat-page');
@@ -10,30 +8,20 @@ var messageInput = document.querySelector('#message');
 var messageArea = document.querySelector('#messageArea');
 var connectingElement = document.querySelector('.connecting');
 
-
-
-var stompClient = null; 
+var stompClient = null;
 var username = null;
 
-// user ko colour dey rhey profile pic may
 var colors = [
     '#2196F3', '#32c787', '#00BCD4', '#ff5652',
     '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
 ];
 
-
-usernameForm.addEventListener('submit', connect, true)
-messageForm.addEventListener('submit', sendMessage, true)
-
-
-function connect(event){
+function connect(event) {
     username = document.querySelector('#name').value.trim();
-    
+
     if(username) {
         usernamePage.classList.add('hidden');
         chatPage.classList.remove('hidden');
-
-        // websocket initialisation
 
         var socket = new SockJS('/ws');
         stompClient = Stomp.over(socket);
@@ -41,8 +29,6 @@ function connect(event){
         stompClient.connect({}, onConnected, onError);
     }
     event.preventDefault();
-
-
 }
 
 
@@ -57,8 +43,6 @@ function onConnected() {
     )
 
     connectingElement.classList.add('hidden');
-
-
 }
 
 
@@ -82,10 +66,6 @@ function sendMessage(event) {
     event.preventDefault();
 }
 
-var firstUserJoined = false; // Flag to track the first user
-
-
-
 
 function onMessageReceived(payload) {
     var message = JSON.parse(payload.body);
@@ -95,23 +75,11 @@ function onMessageReceived(payload) {
     if(message.type === 'JOIN') {
         messageElement.classList.add('event-message');
         message.content = message.sender + ' joined!';
-
-        if (!firstUserJoined) {
-            displayFirstUser(message.sender);
-            firstUserJoined = true;
-        }
-
-       
-
-
     } else if (message.type === 'LEAVE') {
         messageElement.classList.add('event-message');
         message.content = message.sender + ' left!';
-
     } else {
         messageElement.classList.add('chat-message');
-
-
 
         var avatarElement = document.createElement('i');
         var avatarText = document.createTextNode(message.sender[0]);
@@ -137,9 +105,6 @@ function onMessageReceived(payload) {
 }
 
 
-
-
-
 function getAvatarColor(messageSender) {
     var hash = 0;
     for (var i = 0; i < messageSender.length; i++) {
@@ -149,23 +114,5 @@ function getAvatarColor(messageSender) {
     return colors[index];
 }
 
-
-function displayFirstUser(username) {
-    var firstUserInfo = document.getElementById('first-user-info');
-    
-    var avatarElement = document.createElement('i');
-    var avatarText = document.createTextNode(username[0]);
-
-    avatarElement.appendChild(avatarText);
-    avatarElement.classList.add('circle-avatar'); // Add a class for circular avatar
-    avatarElement.style['background-color'] = getAvatarColor(username);
-
-    firstUserInfo.appendChild(avatarElement);
-
-    var usernameElement = document.createElement('span');
-    var usernameText = document.createTextNode(username);
-
-    firstUserInfo.appendChild(usernameElement);
-    usernameElement.appendChild(usernameText);
-
-}
+usernameForm.addEventListener('submit', connect, true)
+messageForm.addEventListener('submit', sendMessage, true)
